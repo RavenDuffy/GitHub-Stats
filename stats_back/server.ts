@@ -18,6 +18,7 @@ server.get('/callback', (req, res) => {
         code: req.query.code!
     }).then(resp => {
         console.log(resp.data)
+        // currently stores the access_token, should replace with a db key
         res.cookie('access_token', resp.data.split('&')[0].split('=')[1])
         res.redirect('http://localhost:3000')
     })
