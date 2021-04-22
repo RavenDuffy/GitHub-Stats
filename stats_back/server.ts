@@ -1,3 +1,4 @@
+import mongoose from 'mongoose'
 import express from 'express'
 import axios from 'axios'
 import cors from 'cors'
@@ -20,11 +21,18 @@ server.get('/callback', (req, res) => {
         console.log(resp.data)
         // currently stores the access_token, should replace with a db key
         res.cookie('access_token', resp.data.split('&')[0].split('=')[1])
-        res.redirect('http://localhost:3000')
+        res.redirect('http://localhost:3000') // split for prod
     })
     .catch(err => console.error(err))
 })
 
 
+const startServer = async () => {
+    await mongoose.connect('mongodb://localhost:27017', {
+        useUnifiedTopology: true,
+        useNewUrlParser: true
+    }) // split for prod
+    server.listen(PORT)
+}
 
-server.listen(PORT)
+startServer()
