@@ -16,7 +16,7 @@ server.get('/callback', (req, res) => {
         client_id: config.client.id,
         client_secret: config.client.secret,
         code: req.query.code!
-    }).then(resp => console.log(resp))
+    }).then(resp => console.log(resp.data))
     .catch(err => console.error(err))
 
     res.redirect('http://localhost:3000')
