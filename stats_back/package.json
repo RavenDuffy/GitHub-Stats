@@ -1,0 +1,30 @@
+{
+  "name": "gs_back",
+  "version": "1.0.0",
+  "description": "the backend providers for the frontend",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/github.com/RavenDuffyGitHub-Stats.git"
+  },
+  "keywords": [
+    "github",
+    "stats"
+  ],
+  "author": "Raven Duffy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/github.com/RavenDuffyGitHub-Stats/issues"
+  },
+  "homepage": "https://github.com/github.com/RavenDuffyGitHub-Stats#readme",
+  "devDependencies": {
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.11",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
