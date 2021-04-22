@@ -16,10 +16,12 @@ server.get('/callback', (req, res) => {
         client_id: config.client.id,
         client_secret: config.client.secret,
         code: req.query.code!
-    }).then(resp => console.log(resp.data))
+    }).then(resp => {
+        console.log(resp.data)
+        res.cookie('access_token', resp.data.split('&')[0].split('=')[1])
+        res.redirect('http://localhost:3000')
+    })
     .catch(err => console.error(err))
-
-    res.redirect('http://localhost:3000')
 })
 
 
