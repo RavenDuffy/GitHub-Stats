@@ -14,6 +14,6 @@ export const UserSchema = new mongoose.Schema({
     accessToken: { type: String, nullable: true}
 })
 
-UserSchema.index({ accessToken: 1, username: 1 }, { unique: true })
+UserSchema.index({ accessToken: 1, username: 1, _id: 1 }, { unique: true })
 
 export const UserModel = mongoose.model<User>("User", UserSchema)
