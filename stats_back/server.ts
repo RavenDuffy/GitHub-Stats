@@ -22,17 +22,17 @@ server.get('/callback', (req, res) => {
         console.log(resp.data)
         
 
-        // const testUser = new UserModel({
-        //     username: 'raven',
-        //     displayName: 'wow',
-        //     avatar: 'pic!',
-        //     accessToken: null
-        // });
-        // testUser.save()
+        const testUser = new UserModel({
+            username: 'raven',
+            displayName: 'wow',
+            avatar: 'pic!',
+            accessToken: null
+        });
+        testUser.save()
 
-        // await new Promise(resolve => setTimeout(resolve, 5000))
-        // const all = await UserModel.find({})
-        // console.log(all)
+        await new Promise(resolve => setTimeout(resolve, 5000))
+        const all = await UserModel.find({})
+        console.log(all)
 
 
         // currently stores the access_token, should replace with a db key
