@@ -20,19 +20,28 @@ server.get('/callback', (req, res) => {
         code: req.query.code!
     }).then(async (resp) => {
         console.log(resp.data)
-        
 
-        const testUser = new UserModel({
+        const newUser = new UserModel({
             username: 'raven',
             displayName: 'wow',
             avatar: 'pic!',
-            accessToken: null
+            accessToken: resp.data.split('&')[0].split('=')[1]
         });
-        testUser.save()
 
-        await new Promise(resolve => setTimeout(resolve, 5000))
-        const all = await UserModel.find({})
-        console.log(all)
+        let duplicateUser = false;
+        for (const user of await UserModel.find({})) {
+            if (user.username == newUser.username &&
+                user.displayName == newUser.displayName &&
+                user.avatar == newUser.avatar) {
+                    user.accessToken = newUser.accessToken
+                    user.save()
+                    duplicateUser = true;
+                    break;
+            }
+        }
+        if (!duplicateUser) newUser.save()
+
+        console.log(await UserModel.find({}))
 
 
         // currently stores the access_token, should replace with a db key
@@ -54,18 +63,6 @@ const startServer = async () => {
 
     // UserModel.collection.drop()
     // UserModel.collection.deleteMany({})
-
-    // const testUser = new UserModel({
-    //     username: 'ravenss',
-    //     displayName: 'wow',
-    //     avatar: 'pic!',
-    //     accessToken: null
-    // });
-    // testUser.save()
-
-    // const all = await UserModel.find({})
-    // console.log(all)
-
 
     server.listen(PORT)
 }
