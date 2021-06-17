@@ -45,7 +45,7 @@ server.get('/callback', (req, res) => {
         console.log(await UserModel.find({}))
 
         // get user's repo info
-        console.log(await GCD.GetStats(newUser.accessToken!))
+        console.log(await GCD.GetStats(newUser.accessToken!, newUser.username))
 
         // currently stores the access_token, should replace with a db key
         res.cookie('access_token', resp.data.split('&')[0].split('=')[1])
