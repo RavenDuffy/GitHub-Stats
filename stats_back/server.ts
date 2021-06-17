@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
 import express from 'express'
-import axios from 'axios'
 import cors from 'cors'
 
 import * as config from '../config.json'
 import { UserModel } from './stats_db/models/user'
 import * as GCD from './utils/gitcmds'
+import { FrontStats } from './types'
 
 // for whatever reason github callbacks on port 4005
 const PORT = 4005;
@@ -35,17 +35,21 @@ server.get('/callback', (req, res) => {
                 user.username = newUser.username
                 user.avatar = newUser.avatar
                 user.accessToken = newUser.accessToken
-                user.save()
+                await user.save()
                 duplicateUser = true;
                 break;
             }
         }
         if (!duplicateUser) newUser.save()
 
-        console.log(await UserModel.find({}))
-
         // get user's repo info
-        console.log(await GCD.GetStats(newUser.accessToken!, newUser.username))
+        const stats = await GCD.GetStats(newUser.accessToken!, newUser.username)
+        for (const user of await UserModel.find({ gitId: newUser.gitId })) {
+            user.stats = stats
+            await user.save()
+        }
+        
+        console.log(await UserModel.find({}))
 
         // currently stores the access_token, should replace with a db key
         res.cookie('access_token', resp.data.split('&')[0].split('=')[1])
@@ -54,6 +58,20 @@ server.get('/callback', (req, res) => {
     .catch(err => console.error(err))
 })
 
+server.get('/stats', async (req, res) => {
+    const validToken = req.headers.cookie?.split('=')[1]
+    const user = await UserModel.find({ accessToken: validToken })
+    if (user.length > 0) {
+        const userToSend: FrontStats = {
+            username: user[0].username,
+            avatar: user[0].avatar,
+            stats: user[0].stats
+        }
+        res.json(userToSend)
+    } else {
+        res.status(401).json({ response: "No valid access token found, please log in before proceeding" })
+    }
+})
 
 const startServer = async () => {
     await mongoose.connect(config.mongo.host, {

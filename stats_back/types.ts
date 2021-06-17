@@ -8,3 +8,10 @@ export interface GitStats {
     totalRepos: number,
     mostUsedLangs: Language[]
 }
+
+// stats formatted for frontend
+export interface FrontStats {
+    username: string,
+    avatar: string,
+    stats: GitStats | null
+}
