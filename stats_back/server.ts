@@ -3,7 +3,7 @@ import express from 'express'
 import axios from 'axios'
 import cors from 'cors'
 
-import * as config from './config.json'
+import * as config from '../config.json'
 import { UserModel } from './stats_db/models/user'
 import * as GCD from './utils/gitcmds'
 
@@ -15,11 +15,10 @@ server.use(express.json())
 server.use(cors({ origin: true, credentials: true }))
 
 server.get('/callback', (req, res) => {
-    GCD.GetAuth(<string>req.query.code!).then(async (resp) => {
-        console.log(resp.data)
-
+    GCD.DoAuth(<string>req.query.code!).then(async (resp) => {
+        // get initial user info
         const accessToken: string = resp.data.split('&')[0].split('=')[1]
-        const userinfo = (await GCD.GetCurrentUser(accessToken)).data
+        const userinfo = (await GCD.FetchCurrentUser(accessToken)).data
 
         // create model
         const newUser = new UserModel({
@@ -45,6 +44,8 @@ server.get('/callback', (req, res) => {
 
         console.log(await UserModel.find({}))
 
+        // get user's repo info
+        console.log(await GCD.GetStats(newUser.accessToken!))
 
         // currently stores the access_token, should replace with a db key
         res.cookie('access_token', resp.data.split('&')[0].split('=')[1])
