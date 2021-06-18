@@ -1,16 +1,9 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import logger from 'redux-logger'
 
-export const store = configureStore({
-  reducer: {
-    
-  },
-});
+import { reducers } from './reducers'
 
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
+const middleware = applyMiddleware(logger, thunk)
+
+export const store = createStore(reducers, middleware)

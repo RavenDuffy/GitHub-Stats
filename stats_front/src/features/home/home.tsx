@@ -1,22 +1,14 @@
-import React from 'react'
 import * as config from '../../config.local.json'
-import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { FetchStats } from '../../actions/statsActions'
 
 export const Home = () => {
+    const dispatch = useDispatch()
+
     const handleLogin = (event: React.MouseEvent) => {
         event.preventDefault()
         const baseURL = 'https://github.com/login/oauth/authorize?'
         window.location.href = `${baseURL}scope=${config.client.scopes.join('%20')}&client_id=${config.client.id}`
-    }
-
-    const fetchStats = async (event: React.MouseEvent) => {
-        event.preventDefault()
-        const stats = await axios.get(config.hosts.stats_endpoint, {
-            withCredentials: true
-        }).catch(error => {
-            console.log(error.response)
-        })
-        if (stats !== undefined) console.log(stats)
     }
 
     return (
@@ -25,8 +17,8 @@ export const Home = () => {
                 Login to Github
             </button>
 
-            <button onClick={fetchStats}>
-                Get Your Stats
+            <button onClick={() => dispatch(FetchStats())}>
+                Fetch Stats Alt
             </button>
         </>
     )
