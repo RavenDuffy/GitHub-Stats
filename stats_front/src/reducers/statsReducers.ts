@@ -1,12 +1,10 @@
-import { Action } from "redux";
-
-export const statsReducer = (state={}, action: Action) => {
+export const statsReducer = (state={}, action: any) => {
     switch(action.type) {
         case "FETCH_STATS": {
             return {...state, fetching: true, fetched: false}
         }
         case "FETCHED_STATS": {
-            return {...state, fetching: false, fetched: true}
+            return {...state, fetching: false, fetched: true, user: action.payload.data}
         }
         default: {
             return state;
