@@ -47,19 +47,32 @@ async function GetStats(accessToken: string, username: string): Promise<GitStats
 
     for (const r of repoInfo) {
         // get most used languages (and their frequencies)
-        if (r.language != null && !stats.mostUsedLangs.some(l => l.name == r.language)) {
-            const newLang: Language = {
-                name: r.language,
-                usageNum: 1
+        const languages = (await axios.get(r.languages_url, {
+            headers: {
+                "Authorization": `token ${accessToken}`
             }
-            stats.mostUsedLangs.push(newLang)
-        } else {
-            stats.mostUsedLangs.map(l => {
-                if (l.name == r.language) {
-                    l.usageNum++
-                    return;
+        })).data
+
+        for (const lang of Object.entries(languages)) {
+            if (!lang) continue;
+
+            // putting this in to avoid a giant school repo I contributed to
+            if (lang[0] == 'C' && r.full_name === 'RavenDuffy/GameSim') continue;
+
+            if (!stats.mostUsedLangs.some(l => l.name == lang[0])) {
+                const newLang: Language = {
+                    name: lang[0],
+                    usageNum: <number>lang[1]
                 }
-            })
+                stats.mostUsedLangs.push(newLang)
+            } else {
+                stats.mostUsedLangs.map(l => {
+                    if (l.name == lang[0]) {
+                        l.usageNum += <number>lang[1]
+                        return;
+                    }
+                })
+            }
         }
         // get total commits
         const contributors = await axios.get(r.contributors_url, {
