@@ -2,7 +2,15 @@ import * as config from '../../config.local.json'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchStats } from '../../actions/statsActions'
 import { validateToken, fetchToken } from '../../actions/tokenActions'
+import { socket } from './tokenSocket'
 import { useEffect } from 'react'
+
+socket.onopen = () => {
+    socket.send("open")
+}
+socket.onmessage = event => {
+    console.log(event.data)
+}
 
 export const Home = () => {
     const dispatch = useDispatch()
@@ -50,6 +58,12 @@ export const Home = () => {
 
                 <button onClick={() => dispatch(validateToken())}>
                     Validate token
+                </button>
+
+                <button onClick={() => {
+                    socket.send('button clicked')
+                }}>
+                    Socket tester
                 </button>
 
                 {(document.cookie.includes('access_token') && stats !== undefined) 

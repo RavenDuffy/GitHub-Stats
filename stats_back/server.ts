@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
+import expressWs from 'express-ws'
 
 import * as config from '../config.json'
 import { UserModel } from './stats_db/models/user'
@@ -10,7 +11,7 @@ import { FrontStats } from './types'
 // for whatever reason github callbacks on port 4005
 const PORT = 4005;
 
-const server = express()
+const server = expressWs(express()).app
 server.use(express.json())
 server.use(cors({ origin: true, credentials: true }))
 
@@ -79,6 +80,15 @@ server.get('/update_token', async (req, res) => {
         : null
     res.cookie('access_token', token)
     res.json({ token: token })
+})
+
+server.ws('/update_token', (ws, req) => {
+    ws.on('message', msg => {
+        ws.send(`Acknowledged: '${msg}'`)
+    })
+    ws.on('close', () => {
+        console.log("socket closed")
+    })
 })
 
 server.get('/validate/:token', async (req, res) => {
