@@ -48,18 +48,17 @@ server.get('/callback', (req, res) => {
             user.stats = stats
             await user.save()
         }
-        
-        console.log(await UserModel.find({}))
 
         // currently stores the access_token, should replace with a db key
         res.cookie('access_token', resp.data.split('&')[0].split('=')[1])
-        res.redirect(config.hosts.front) // split for prod
+        res.cookie('git_id', newUser.gitId)
+        res.redirect(config.hosts.front)
     })
     .catch(err => console.error(err))
 })
 
 server.get('/stats', async (req, res) => {
-    const validToken = req.headers.cookie?.split('=')[1]
+    const validToken = req.headers.cookie?.split(';').find(e => e.includes('access_token'))?.split('=')[1]
     const user = await UserModel.find({ accessToken: validToken })
     if (user.length > 0) {
         const userToSend: FrontStats = {
@@ -71,6 +70,24 @@ server.get('/stats', async (req, res) => {
     } else {
         res.status(401).json({ response: "No valid access token found, please log in before proceeding" })
     }
+})
+
+server.get('/update_token', async (req, res) => {
+    const userId = req.headers.cookie?.split(';').find(e => e.includes('git_id'))?.split('=')[1]
+    const token = (userId !== undefined) 
+        ? (await UserModel.find({ gitId: Number.parseInt(userId) }))[0].accessToken 
+        : null
+    res.cookie('access_token', token)
+    res.json({ token: token })
+})
+
+server.get('/validate/:token', async (req, res) => {
+    const currentToken = req.params.token.split('=')[1]
+    const user = await UserModel.find({ accessToken: currentToken })
+    if (user.length > 0)
+        res.json({ tokenValid: true })
+    else
+        res.json({ tokenValid: false })
 })
 
 const startServer = async () => {

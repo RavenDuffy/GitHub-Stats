@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux'
 
-import { statsReducer } from '../reducers/statsReducers'
+import { statsReducer } from '../reducers/statsReducer'
+import { validateReducer, newTokenReducer } from '../reducers/tokenReducer'
 
 
 export const reducers = combineReducers({
-    statsReducer
+    statsReducer,
+    validateReducer,
+    newTokenReducer
 })
