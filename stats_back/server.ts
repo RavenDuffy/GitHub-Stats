@@ -15,12 +15,17 @@ const server = express()
 server.use(express.json())
 server.use(cors({ origin: true, credentials: true }))
 
+interface ExtraWS extends WebSocket {
+    [name: string]: any
+}
+
 const wss = new WebSocket.Server({
     port: 4010,
     perMessageDeflate: false
 })
 
-wss.on('connection', (ws, req) => {
+wss.on('connection', (ws: ExtraWS, req) => {
+    ws.id = req.headers.cookie?.split(';').find(e => e.includes('git_id'))?.split('=')[1]
     ws.send(`Connected to: ${req.socket.remoteAddress}:${req.socket.remotePort}`)
 
     ws.on('message', msg => {
@@ -80,9 +85,10 @@ server.get('/stats', async (req, res) => {
             avatar: user[0].avatar,
             stats: user[0].stats
         }
-        console.log('SIZE: ', wss.clients.size)
         wss.clients.forEach(client => {
-            client.send(validToken)
+            const castClient = client as ExtraWS
+            if (castClient.id === req.headers.cookie?.split(';').find(e => e.includes('git_id'))?.split('=')[1])
+                client.send(JSON.stringify({ accessToken: validToken }))
         })
         res.json(userToSend)
     } else {

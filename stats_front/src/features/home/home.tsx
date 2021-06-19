@@ -9,7 +9,10 @@ socket.onopen = () => {
     socket.send("open")
 }
 socket.onmessage = event => {
-    console.log(event.data)
+    let parsed = event.data
+    try { parsed = JSON.parse(parsed) } catch (e) {}
+    if (parsed.accessToken !== undefined)
+        document.cookie = `access_token=${parsed.accessToken}`
 }
 
 export const Home = () => {
