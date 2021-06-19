@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
-import expressWs from 'express-ws'
+import WebSocket from 'ws'
 
 import * as config from '../config.json'
 import { UserModel } from './stats_db/models/user'
@@ -11,9 +11,22 @@ import { FrontStats } from './types'
 // for whatever reason github callbacks on port 4005
 const PORT = 4005;
 
-const server = expressWs(express()).app
+const server = express()
 server.use(express.json())
 server.use(cors({ origin: true, credentials: true }))
+
+const wss = new WebSocket.Server({
+    port: 4010,
+    perMessageDeflate: false
+})
+
+wss.on('connection', (ws, req) => {
+    ws.send(`Connected to: ${req.socket.remoteAddress}:${req.socket.remotePort}`)
+
+    ws.on('message', msg => {
+        ws.send(`Recieved: '${msg}'`)
+    })
+})
 
 server.get('/callback', (req, res) => {
     GCD.DoAuth(<string>req.query.code!).then(async (resp) => {
@@ -67,9 +80,13 @@ server.get('/stats', async (req, res) => {
             avatar: user[0].avatar,
             stats: user[0].stats
         }
+        console.log('SIZE: ', wss.clients.size)
+        wss.clients.forEach(client => {
+            client.send(validToken)
+        })
         res.json(userToSend)
     } else {
-        res.status(401).json({ response: "No valid access token found, please log in before proceeding" })
+        res.status(401).json({ response: "No valid access token found, please log in before continuing" })
     }
 })
 
@@ -78,17 +95,9 @@ server.get('/update_token', async (req, res) => {
     const token = (userId !== undefined) 
         ? (await UserModel.find({ gitId: Number.parseInt(userId) }))[0].accessToken 
         : null
+
     res.cookie('access_token', token)
     res.json({ token: token })
-})
-
-server.ws('/update_token', (ws, req) => {
-    ws.on('message', msg => {
-        ws.send(`Acknowledged: '${msg}'`)
-    })
-    ws.on('close', () => {
-        console.log("socket closed")
-    })
 })
 
 server.get('/validate/:token', async (req, res) => {
