@@ -5,6 +5,7 @@ import { validateToken, fetchToken } from '../../actions/tokenActions'
 import { socket } from './tokenSocket'
 import { InfoLayout } from '../../components/info/info'
 import { useEffect } from 'react'
+import styles from './home.module.scss'
 
 socket.onopen = () => {
     socket.send("open")
@@ -51,11 +52,7 @@ export const HomeLayout = () => {
     }
     else if (isValidToken.tokenValid) {
         return (
-            <>
-                <button onClick={handleLogin}>
-                    {(document.cookie.includes('access_token') && stats !== undefined) ? "Refresh Stats" : "Login"}
-                </button>
-
+            <div className={styles.homeWrapper}>
                 {(document.cookie.includes('access_token') && stats !== undefined) 
                     ? <InfoLayout userInfo={stats}/>
                     : <h4>{(error === undefined) 
@@ -63,7 +60,10 @@ export const HomeLayout = () => {
                         : "Error occured. Please try logging in again."
                     }</h4>
                 }
-            </>
+                <button onClick={handleLogin}>
+                    {(document.cookie.includes('access_token') && stats !== undefined) ? "Refresh Stats" : "Login"}
+                </button>
+            </div>
         )
     }
     else { return <h4>Error. Please delete your cookies and refresh.</h4> }
