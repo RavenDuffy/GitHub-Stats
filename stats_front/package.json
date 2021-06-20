@@ -40,9 +40,11 @@
     ]
   },
   "devDependencies": {
+    "@types/node-sass": "^4.11.1",
     "@types/redux-logger": "^3.0.8",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
+    "node-sass": "^6.0.0",
     "redux": "^4.1.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"

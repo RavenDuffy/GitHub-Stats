@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchStats } from '../../actions/statsActions'
 import { validateToken, fetchToken } from '../../actions/tokenActions'
 import { socket } from './tokenSocket'
+import { InfoLayout } from '../../components/info/info'
 import { useEffect } from 'react'
 
 socket.onopen = () => {
@@ -15,7 +16,7 @@ socket.onmessage = event => {
         document.cookie = `access_token=${parsed.accessToken}`
 }
 
-export const Home = () => {
+export const HomeLayout = () => {
     const dispatch = useDispatch()
     const stats = useSelector((state:any) => state.statsReducer.user)
     const error = useSelector((state:any) => state.statsReducer.error)
@@ -52,31 +53,11 @@ export const Home = () => {
         return (
             <>
                 <button onClick={handleLogin}>
-                    Login to Github
-                </button>
-
-                <button onClick={() => console.log(stats)}>
-                    Check stats
-                </button>
-
-                <button onClick={() => dispatch(validateToken())}>
-                    Validate token
-                </button>
-
-                <button onClick={() => {
-                    socket.send('button clicked')
-                }}>
-                    Socket tester
+                    {(document.cookie.includes('access_token') && stats !== undefined) ? "Refresh Stats" : "Login"}
                 </button>
 
                 {(document.cookie.includes('access_token') && stats !== undefined) 
-                    ? <>
-                        <h4>{stats.username}</h4>
-                        <img src={stats.avatar} alt="avatar" />
-                        {stats.stats.mostUsedLangs.map((el:any) => {
-                            return <h5 key={el.name}>{el.name} {el.usageNum}</h5>
-                        })}
-                    </>
+                    ? <InfoLayout userInfo={stats}/>
                     : <h4>{(error === undefined) 
                         ? "Loading..." 
                         : "Error occured. Please try logging in again."

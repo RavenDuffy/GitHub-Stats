@@ -1,13 +1,10 @@
-import React from 'react';
 import './App.css';
-import { Home } from './features/home/home';
+import { HomeLayout } from './pages/home/home';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Home />
-      </header>
+      <HomeLayout />
     </div>
   );
 }
