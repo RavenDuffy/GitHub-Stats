@@ -10,7 +10,7 @@ export const InfoLayout = (userInfo: any) => {
         <div className={styles.userInfoWrapper}>
             <img className={styles.userPicture} src={info.avatar} alt="avatar" />
             <div className={styles.userWrapper}>
-                <h4>{info.username}'s GitHub Stats</h4>
+                <h4><span className={styles.highLightText}>{info.username}'s</span> GitHub Stats</h4>
                 <h4 className={styles.langTitle}>Most used Languages:</h4>
                 <div className={styles.langs}>
                     <StackedBar langs={langs} />
