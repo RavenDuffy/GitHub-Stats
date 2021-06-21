@@ -9,7 +9,7 @@
     width: 550px;
     height: 150px;
     border-radius: 3px;
-    border: 5px solid;
+    border: 5px solid white;
 }
 
 .userWrapper {
@@ -21,6 +21,11 @@
     h4 {
         margin: 0 0 0.5em 0;
         color: #ff3baa;
+    }
+
+    h4:first-child {
+        text-decoration: underline;
+        text-decoration-thickness: 0.15em;
     }
 
     .langTitle {
@@ -38,8 +43,8 @@
 }
 
 .userPicture {
-    width: 150px;
-    height: 150px;
+    width: 145px;
+    height: 145px;
 }
 
 .langs {
