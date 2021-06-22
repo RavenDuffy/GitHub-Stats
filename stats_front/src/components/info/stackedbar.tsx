@@ -12,7 +12,7 @@ const coloursIndexable = Colours as colourMapType
 
 export const StackedBar: FC<any> = ({ langs }) => {
     const totalLangSize = langs.reduce((total: number, l: any) => total + l.usageNum, 0)
-    const width = 380;
+    const width = 330;
     
     let lastX = 0;
 
