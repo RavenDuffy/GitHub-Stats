@@ -1,4 +1,7 @@
-.homeWrapper {
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+.homeWrapper,
+.loginWrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -7,4 +10,47 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+button {
+    border: 0;
+    border-radius: 5px;
+    width: 75px;
+    cursor: pointer;
+    background-image: linear-gradient(to right, #00ffaa, #ff3baa);
+    color: #0f0f0f;
+    font-weight: bolder;
+    padding: 5px 0;
+    margin: 10px 0;
+    opacity: 1;
+    transition: 0.4s;
+}
+button:hover {
+    opacity: 0.7;
+    transition: 0.4s;
+}
+
+.loginWrapper {
+    width: 90%;
+    height: fit-content;
+    padding: 5px 10px;
+    font-family: 'Monserrat' sans-serif;
+    font-size: 0.8em;
+    border-radius: 5px;
+    background-color: #0f0f0f;
+
+    h4, p, ul {
+        margin: 0;
+        margin-bottom: 5px;
+        color: #5ffbf1;
+    }
+    h4 {
+        color: #ff3baa;
+        font-size: 1rem;
+    }
+    ul {
+        list-style: '- ' outside none;
+        list-style-position: outside;
+        padding: 0 1em;
+    }
 }

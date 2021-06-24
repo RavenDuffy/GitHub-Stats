@@ -43,9 +43,24 @@ export const HomeLayout = () => {
     }, [isValidToken])
 
     if (isValidToken === undefined) return (
-        <button onClick={handleLogin}>
-            Login to Github
-        </button>
+        <div className={styles.loginWrapper}>
+            <div className={styles.dataUsage}>
+                <h4>How we're using your data</h4>
+                <p>We collect:</p>
+                <ul>
+                    <li>Your username</li>
+                    <li>Your avatar's url</li>
+                    <li>The number of repositories you've contributed to (public and private)</li>
+                    <li>The number of commits you've made to those repositories</li>
+                    <li>The amount of each language used in the repositories (measure in bytes)</li>
+                </ul>
+                <p>We use this information to create an infographic to display the aforementioned stats.</p>
+                <p>If you're okay with all of that, please login!</p>
+            </div>
+            <button onClick={handleLogin}>
+                Login to Github
+            </button>
+        </div>
     )
     else if (stats === undefined || (Object.keys(stats).length === 0 && stats.constructor === Object)) {
         return <h4>Loading...</h4>
