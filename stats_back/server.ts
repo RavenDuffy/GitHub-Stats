@@ -96,6 +96,8 @@ server.get('/stats', async (req, res) => {
     }
 })
 
+/****** DEPRECATED FUNCTIONS BELOW ******/
+
 server.get('/update_token', async (req, res) => {
     const userId = req.headers.cookie?.split(';').find(e => e.includes('git_id'))?.split('=')[1]
     const token = (userId !== undefined) 
@@ -114,6 +116,8 @@ server.get('/validate/:token', async (req, res) => {
     else
         res.json({ tokenValid: false })
 })
+
+/****** END OF DEPRECATED FUNCTIONS ******/
 
 const startServer = async () => {
     await mongoose.connect(config.mongo.host, {
