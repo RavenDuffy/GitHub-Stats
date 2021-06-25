@@ -3,4 +3,8 @@ This is the REST API written with [nodejs](https://nodejs.org/en/) and [express]
 It serves all info from the mongodb to be used for whatever (i.e. the frontend). This API is also used 
 to catch and return the data when a new user logs in using Github.
 
-## More on the way...
+### Endpoints
+- `/callback`: used when the user returns from logging into GitHub (fetches/updates currently store stats)
+- `/stats`: returns the current user's stats as stored in the DB (not necessarily up to date)
+- *\[Deprecated\]* ~~`/update_token`: updates the current cookie store to contain the most up to date GitHub access token~~
+- *\[Deprecated\]* ~~`/validate/[token]`: checks a passed token to see if it matches the current DB entry~~
