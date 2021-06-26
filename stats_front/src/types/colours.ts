@@ -1832,3 +1832,10 @@ export const Colours = {
         "url": "https://github.com/trending?l=Zimpl"
     }
 }
+
+export interface ColourMap {
+    [key: string]: {
+        color: string | null,
+        url: string
+    }
+}

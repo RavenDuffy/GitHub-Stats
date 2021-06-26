@@ -1,13 +1,6 @@
-import { Colours } from "../../types/colours";
+import { Colours, ColourMap } from "../../types/colours";
 
-interface colourMapType {
-    [key: string]: {
-        color: string | null,
-        url: string
-    }
-}
-
-const coloursIndexable = Colours as colourMapType
+const coloursIndexable = Colours as ColourMap
 
 export const StackedLangBar = ({ ypos, langs }: any) => {
     const totalLangSize = langs.reduce((total: number, l: any) => {
