@@ -90,6 +90,21 @@
     .loginFormButton {
         text-align: center;
         margin: 32px 0 16px 0;
+        button {
+            background: linear-gradient(149deg, #00ffaa, #ff3baa, #5ffbf1);
+            background-size: 600% 600%;
+            animation: Animation 10s ease infinite;
+            transition: 1s;
+            
+            @keyframes Animation {
+                0%{background-position:22% 0%}
+                50%{background-position:79% 100%}
+                100%{background-position:22% 0%}
+            }
+        }
+        button:hover{
+            color: #fff;
+        }
     }
 
 }
