@@ -24,6 +24,9 @@ export const HomeLayout = () => {
         }
     }
 
+    if (document.cookie.split(';').find(c => c.trim().startsWith('is_logged_in'))?.endsWith('true') && !isLoginComplete)
+        setIsLoginComplete(true)
+
     useEffect(() => {
         if (document.cookie.split(';').find(c => c.trim().startsWith('stats_ready'))?.endsWith('true') && !doStatsExist && isLoginComplete)
             dispatch(fetchStats())
