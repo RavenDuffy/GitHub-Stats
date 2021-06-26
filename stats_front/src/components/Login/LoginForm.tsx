@@ -19,7 +19,7 @@ export const LoginForm = ({handleLogin}:any) => {
             <div className={styles.loginFormButton}>
                 <button onClick={handleLogin}>Authorise App</button>
             </div>
-            <p className={styles.credit}>By Raven Duffy & Summer Anderson-Cheung</p>
+            <p className={styles.credit}>By <a href="https://github.com/RavenDuffy">Raven Duffy</a> & <a href="https://github.com/SAndersonCheung">Summer Anderson-Cheung</a></p>
         </div>
     )
 }
