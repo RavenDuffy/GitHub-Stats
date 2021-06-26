@@ -57,3 +57,53 @@
         }
     }
 }
+
+.loginForm {
+    min-width: 320px;
+    width: 80%;
+    h1 {
+        color: #ff3baa;
+    }
+
+    p {
+        .title {
+            color: #ff3baa;
+        }
+    }
+    .credit {
+        color: #828282;
+        font-size: 11px;
+        text-align: right;
+    }
+
+    .list {
+        p {
+            margin: 8px 0;
+        }
+        ul {
+            margin: 0;
+            li {
+                margin-bottom: 4px;
+                .highlight {
+                    color: #5ffbf1;
+                }
+            }
+        }
+    }
+
+    .loginFormButton {
+        text-align: center;
+        margin: 32px 0 16px 0;
+        button {
+            border: 0;
+            font-size: 20px;
+            font-weight: bolder;
+            color: #0f0f0f;
+            background-image: linear-gradient(to right,#5ffbf1,#00ffaa);
+            border-radius: 8px;
+            padding: 13px;
+            cursor: pointer;
+        }
+    }
+
+}
