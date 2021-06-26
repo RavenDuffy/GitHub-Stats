@@ -1,10 +1,13 @@
+@import 'https://fonts.googleapis.com/css?family=Montserrat&display=swap';
+
 :root {
-    --color-primary: #242c37;
+    --color-primary: #13171a;
 }
 
 * { /* Firefox styling */
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary);
+    font-family: 'Montserrat';
 }
 
 ::-webkit-scrollbar { /* Everyone else */
@@ -31,6 +34,7 @@ body,
 body,
 #root {
     display: flex;
+    background-color: var(--color-primary);
 }
 
 button:focus {
