@@ -41,9 +41,15 @@
     ]
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/redux-logger": "^3.0.8",
+    "axios": "^0.21.1",
+    "css-loader": "^5.2.6",
     "react-redux": "^7.2.4",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sass": "^1.35.1",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.0.0"
   }
 }

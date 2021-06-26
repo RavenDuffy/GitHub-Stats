@@ -1,0 +1,38 @@
+:root {
+    --color-primary: #242c37;
+}
+
+* { /* Firefox styling */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary);
+}
+
+::-webkit-scrollbar { /* Everyone else */
+    overflow: overlay;
+    width: 8px
+}
+
+::-webkit-scrollbar-track {
+    display: initial;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary);
+    border-radius: 5px;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+body,
+#root {
+    display: flex;
+}
+
+button:focus {
+    outline: none;
+}

@@ -38,7 +38,7 @@ server.get('/callback', (req, res) => {
         // get initial user info
         const accessToken: string = resp.data.split('&')[0].split('=')[1]
         const userinfo = (await GCD.FetchCurrentUser(accessToken)).data
-
+        
         // create model
         const newUser = new UserModel({
             username: userinfo.login,
@@ -61,6 +61,9 @@ server.get('/callback', (req, res) => {
         }
         if (!duplicateUser) newUser.save()
 
+        res.cookie('git_id', newUser.gitId)
+        res.redirect(config.hosts.front)
+
         // get user's repo info
         const stats = await GCD.GetStats(newUser.accessToken!, newUser.username)
         for (const user of await UserModel.find({ gitId: newUser.gitId })) {
@@ -68,10 +71,11 @@ server.get('/callback', (req, res) => {
             await user.save()
         }
 
-        // currently stores the access_token, should replace with a db key
-        res.cookie('access_token', resp.data.split('&')[0].split('=')[1])
-        res.cookie('git_id', newUser.gitId)
-        res.redirect(config.hosts.front)
+        wss.clients.forEach(client => {
+            const castClient = client as ExtraWS
+            if (castClient.id == newUser.gitId)
+                client.send(JSON.stringify({ fetched_status: true }))
+        })
     })
     .catch(err => console.error(err))
 })
@@ -104,17 +108,17 @@ server.get('/update_token', async (req, res) => {
         ? (await UserModel.find({ gitId: Number.parseInt(userId) }))[0].accessToken 
         : null
 
-    res.cookie('access_token', token)
-    res.json({ token: token })
+    res.json({ deprecated: 'this endpoint has been deprecated' })
 })
 
 server.get('/validate/:token', async (req, res) => {
     const currentToken = req.params.token.split('=')[1]
     const user = await UserModel.find({ accessToken: currentToken })
-    if (user.length > 0)
-        res.json({ tokenValid: true })
-    else
-        res.json({ tokenValid: false })
+    // if (user.length > 0)
+    //     res.json({ tokenValid: true })
+    // else
+    //     res.json({ tokenValid: false })
+    res.json({ deprecated: 'this endpoint has been deprecated' })
 })
 
 /****** END OF DEPRECATED FUNCTIONS ******/
