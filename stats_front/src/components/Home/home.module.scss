@@ -11,20 +11,44 @@
         margin: auto;
         text-align: center;
 
-        .username {
-            color: #5ffbf1;
+        .top {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            .topLeft{
+                margin: 0 12px;
+                .username {
+                    color: #5ffbf1;
+                }
+        
+                .downloadButton {
+                    margin: 32px;
+                }
+            }
+            .topRight {
+
+            }
         }
 
-        .downloadButton {
-            margin: 32px;
+        hr {
+            border: 0;
+            border-radius: 5px;
+            height: 3px;
+            background: #333;
+            background-image: linear-gradient(90deg, 
+            #5ffbf1 33.3% /* 1*12.5% */, 
+            #ff3baa 0,#ff3baa 66.6%   /* 2*12.5% */, 
+            #00ffaa 0, #00ffaa 100%);
         }
-
-        .highlight {
-            color: #ff3baa;
-        }
-
+        
         .extraInfo {
             text-align: left;
+
+            .highlight {
+                color: #ff3baa;
+            }
+
             ol {
                 li {
                     margin-bottom: 5px;

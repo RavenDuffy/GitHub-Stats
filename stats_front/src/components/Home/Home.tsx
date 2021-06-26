@@ -7,15 +7,22 @@ export const Home = ({ stats }: any) => {
     return (
         <div className={styles.mainWrapper}>
             <div className={styles.mainContent}>
-                <h3>Hey there <span className={styles.username}>{stats.username}</span></h3>
-                <p>Thanks for waiting!<br/> Here's your <span className={styles.highlight}>GitHubStats</span> image:</p>
-                <StatSVG stats={stats}/>
-                
+                <div className={styles.top}>
+                    <div className={styles.topLeft}>
+                        <h3>Hey there <span className={styles.username}>{stats.username}</span></h3>
+                        <p>Thanks for waiting!<br/> Here's your <span className={styles.highlight}>GitHubStats</span> image:</p>
+                        <div className={styles.downloadButton}>
+                            <button>Download Image</button>
+                        </div>
+                    </div>
 
-                <div className={styles.downloadButton}>
-                    <button>Download Image</button>
+                    <div className={styles.topRight}>
+                        <StatSVG stats={stats}/>
+                    </div>
                 </div>
-                
+
+                < hr />
+
                 <div className={styles.extraInfo}>
                     <p>If you wish to display your <span className={styles.highlight}>GitHubStats</span> image on your GitHub profile, follow these easy steps: </p>
                     <ol>
