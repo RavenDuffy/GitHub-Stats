@@ -1,10 +1,39 @@
-.mainContent {
-    min-width: 320px;
-    width: 80%;
-    margin: auto;
-    text-align: center;
+.mainWrapper { 
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .mainContent {
+        min-width: 320px;
+        max-width: 860px;
+        width: 80%;
+        margin: auto;
+        text-align: center;
 
-    .downloadButton {
-        margin: 32px;
+        .username {
+            color: #5ffbf1;
+        }
+
+        .downloadButton {
+            margin: 32px;
+        }
+
+        .highlight {
+            color: #ff3baa;
+        }
+
+        .extraInfo {
+            text-align: left;
+            ol {
+                li {
+                    margin-bottom: 5px;
+                }
+            }
+
+            .bolden {
+                font-weight: 600;
+            }
+        }
     }
 }
