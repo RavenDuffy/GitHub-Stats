@@ -3,6 +3,7 @@ import * as config from '../config.local.json'
 import { FETCH_STATS } from '../reducers/statsReducer'
 
 export const fetchStats = () => {
+    document.cookie = `stats_ready=${false}; max-age=${60 * 60 * 1};`
     return async (dispatch: any, getState: any) => {
         dispatch({
             type: FETCH_STATS.REQUEST,
@@ -14,6 +15,7 @@ export const fetchStats = () => {
                 type: FETCH_STATS.SUCCESS,
                 payload: result
             })
+            document.cookie = `stats_ready=${true}; max-age=${60 * 60 * 1};`
         })
         .catch(error => {
             dispatch({

@@ -4,7 +4,8 @@ import styles from './login.module.scss'
 const loadMsgs = [
     "Fetching your profile...",
     "Processing your stats...",
-    "Finalising..."
+    "Finalising...",
+    "Taking a little longer than usual..."
 ]
 
 export const LoadingStatus = () => {

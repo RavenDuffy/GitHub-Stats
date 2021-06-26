@@ -81,19 +81,14 @@ server.get('/callback', (req, res) => {
 })
 
 server.get('/stats', async (req, res) => {
-    const validToken = req.headers.cookie?.split(';').find(e => e.includes('access_token'))?.split('=')[1]
-    const user = await UserModel.find({ accessToken: validToken })
+    const userGitID = req.headers.cookie?.split(';').find(e => e.includes('git_id'))?.split('=')[1]
+    const user = await UserModel.find({ gitId: (userGitID !== undefined) ? parseInt(userGitID) : -1 })
     if (user.length > 0) {
         const userToSend: FrontStats = {
             username: user[0].username,
             avatar: user[0].avatar,
             stats: user[0].stats
         }
-        wss.clients.forEach(client => {
-            const castClient = client as ExtraWS
-            if (castClient.id === req.headers.cookie?.split(';').find(e => e.includes('git_id'))?.split('=')[1])
-                client.send(JSON.stringify({ accessToken: validToken }))
-        })
         res.json(userToSend)
     } else {
         res.status(401).json({ response: "No valid access token found, please log in before continuing" })
