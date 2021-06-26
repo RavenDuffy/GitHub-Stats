@@ -1,4 +1,5 @@
 import styles from './home.module.scss'
+import { Credit } from '../Credit/Credit'
 import { StatSVG } from "./StatSVG"
 
 export const Home = ({ stats }: any) => {
@@ -18,7 +19,7 @@ export const Home = ({ stats }: any) => {
                 <p>The card is cool.</p>
             </div>
 
-            <p className={styles.credit}>By <a href="https://github.com/RavenDuffy">Raven Duffy</a> & <a href="https://github.com/SAndersonCheung">Summer Anderson-Cheung</a></p>
+            <Credit />
         </div>
     )
 }

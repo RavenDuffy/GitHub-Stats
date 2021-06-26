@@ -1,4 +1,5 @@
 import styles from './login.module.scss'
+import { Credit } from '../Credit/Credit'
 
 export const LoginForm = ({handleLogin}:any) => {
     return (
@@ -19,7 +20,7 @@ export const LoginForm = ({handleLogin}:any) => {
             <div className={styles.loginFormButton}>
                 <button onClick={handleLogin}>Authorise App</button>
             </div>
-            <p className={styles.credit}>By <a href="https://github.com/RavenDuffy">Raven Duffy</a> & <a href="https://github.com/SAndersonCheung">Summer Anderson-Cheung</a></p>
+            <Credit />
         </div>
     )
 }
