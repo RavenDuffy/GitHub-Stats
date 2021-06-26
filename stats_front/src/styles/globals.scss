@@ -41,3 +41,18 @@ body,
 button:focus {
     outline: none;
 }
+
+.App {
+    width: 100%;
+}
+
+button {
+    border: 0;
+    font-size: 20px;
+    font-weight: bolder;
+    color: #0f0f0f;
+    background-image: linear-gradient(to right,#5ffbf1,#00ffaa);
+    border-radius: 8px;
+    padding: 13px;
+    cursor: pointer;
+}

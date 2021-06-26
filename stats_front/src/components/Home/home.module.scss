@@ -1,0 +1,19 @@
+.mainContent {
+    min-width: 320px;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+
+    .credit {
+        color: #828282;
+        font-size: 11px;
+        text-align: right;
+        a {
+            color: #a6a6a6;
+        }
+    }
+
+    .downloadButton {
+        margin: 32px;
+    }
+}
