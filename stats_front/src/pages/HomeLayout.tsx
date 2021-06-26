@@ -31,6 +31,7 @@ export const HomeLayout = () => {
             dispatch(fetchStats())
         if (recievedStats?.username !== undefined)
             setDoStatsExist(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doStatsExist, isLoginComplete, recievedStats])
 
     return (
