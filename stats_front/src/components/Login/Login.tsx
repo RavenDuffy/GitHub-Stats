@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { doLogin } from '../../actions/loginActions'
 import { LoadingStatus } from './LoadingStatus'
+import { LoginForm } from './LoginForm'
 
 
 export const Login = () => {
@@ -26,7 +27,7 @@ export const Login = () => {
     return (
         <div className={styles.loginWrapper}>
             {(!loginStatus.complete && !document.cookie.split(';').find(c => c.trim().startsWith('is_logged_in'))?.endsWith('true'))
-                ? <button onClick={handleLogin}>Login</button>
+                ? <LoginForm handleLogin={handleLogin}/>
                 : <div className={styles.loaderWrapper}>
                     <div className={styles.loader}>
                         <div className={styles.loaderFirst}></div><div className={styles.loaderSecond}></div>
