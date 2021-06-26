@@ -24,6 +24,9 @@ export const HomeLayout = () => {
         }
     }
 
+    if (document.cookie.split(';').find(c => c.trim().startsWith('is_logged_in'))?.endsWith('true') && !isLoginComplete)
+        setIsLoginComplete(true)
+
     useEffect(() => {
         if (document.cookie.split(';').find(c => c.trim().startsWith('stats_ready'))?.endsWith('true') && !doStatsExist && isLoginComplete)
             dispatch(fetchStats())
@@ -31,6 +34,7 @@ export const HomeLayout = () => {
             dispatch(fetchStats())
         if (recievedStats?.username !== undefined)
             setDoStatsExist(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [doStatsExist, isLoginComplete, recievedStats])
 
     return (
