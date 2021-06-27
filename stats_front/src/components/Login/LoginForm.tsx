@@ -1,5 +1,6 @@
 import styles from './login.module.scss'
 import { Credit } from '../Credit/Credit'
+import { Button } from '../Button'
 
 export const LoginForm = ({handleLogin}:any) => {
     return (
@@ -18,7 +19,7 @@ export const LoginForm = ({handleLogin}:any) => {
             </div>
             <p>We use this information to create an infographic to display the aforementioned stats. <br />If you're okay with all of that, please login!</p>
             <div className={styles.loginFormButton}>
-                <button onClick={handleLogin}>Authorise App</button>
+                <Button onClick={handleLogin}>Authorise App</Button>
             </div>
             <Credit />
         </div>

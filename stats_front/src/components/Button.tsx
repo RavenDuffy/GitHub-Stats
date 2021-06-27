@@ -1,4 +1,4 @@
-export const Button = ({ children }: any) => {
+export const Button = ({ children, onClick }: any) => {
     const createRipple = (event: any) => {
         const button = event.currentTarget
         const circle = document.createElement('span')
@@ -15,6 +15,8 @@ export const Button = ({ children }: any) => {
         if (ripple) ripple.remove()
 
         button.appendChild(circle)
+
+        onClick() // use new onclicks
     }
 
     return (

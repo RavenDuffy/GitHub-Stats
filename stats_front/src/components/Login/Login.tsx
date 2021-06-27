@@ -12,8 +12,7 @@ export const Login = () => {
     const dispatch = useDispatch()
     const loginStatus = useSelector((state: any) => state.loginReducer)
 
-    const handleLogin = (event: React.MouseEvent) => {
-        event.preventDefault()
+    const handleLogin = () => {
         dispatch(doLogin())
         const baseURL = 'https://github.com/login/oauth/authorize?'
         window.location.href = `${baseURL}scope=${config.client.scopes.join('%20')}&client_id=${config.client.id}`
