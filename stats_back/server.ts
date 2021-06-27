@@ -104,6 +104,22 @@ server.get('/stats', async (req, res) => {
     updateStats(user)
 })
 
+server.get('/stats/:gitId', async (req, res) => {
+    const userGitID = req.params.gitId
+    const user = await UserModel.findOne({ gitId: (userGitID !== undefined) ? parseInt(userGitID) : -1 })
+    if (user !== null) {
+        const userToSend: FrontStats = {
+            username: user.username,
+            avatar: user.avatar,
+            stats: user.stats
+        }
+        res.json(userToSend)
+    } else {
+        res.status(401).json({ error: "No record with that id found, please log in before continuing" })
+    }
+    updateStats(user)
+})
+
 const startServer = async () => {
     await mongoose.connect(config.mongo.host, {
         useUnifiedTopology: true,

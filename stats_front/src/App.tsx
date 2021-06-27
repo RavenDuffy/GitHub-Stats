@@ -1,10 +1,20 @@
 import { HomeLayout } from "./pages/HomeLayout";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { ServeSVGLayout } from "./pages/ServeSVGLayout";
+
 
 function App() {
   return (
-    <div className="App">
-      <HomeLayout />
-    </div>
+    <Router>
+      <Switch>
+        <Route path='/:gitId' component={ServeSVGLayout} />
+        <Route path='/'>
+          <div className="App">
+            <HomeLayout />
+          </div>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

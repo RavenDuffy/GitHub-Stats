@@ -1,6 +1,7 @@
 import styles from './home.module.scss'
 import { Credit } from '../Credit/Credit'
 import { StatSVG } from "./StatSVG"
+import { Link } from 'react-router-dom'
 
 export const Home = ({ stats }: any) => {
 
@@ -12,7 +13,7 @@ export const Home = ({ stats }: any) => {
                         <h3>Hey there <span className={styles.username}>{stats.username}</span></h3>
                         <p>Thanks for waiting!<br/> Here's your <span className={styles.highlight}>GitHubStats</span> image:</p>
                         <div className={styles.downloadButton}>
-                            <button>Get your Link</button>
+                            <button><Link to={`${document.cookie.split(';').find(c => c.startsWith('git_id'))?.split('=')[1]}`}>Get your Link</Link></button>
                         </div>
                     </div>
 
