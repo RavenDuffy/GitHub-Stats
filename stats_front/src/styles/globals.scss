@@ -55,8 +55,24 @@ button {
     padding: 13px;
     cursor: pointer;
     background: linear-gradient(to right,#5ffbf1,#00ffaa);
-    transition: 1s;
+    transition: color 0.2s;
+    position: relative;
+    overflow: hidden;
 }
-button:hover{
+button:hover {
     color: #fff;
+    transition: color 0.2s;
+}
+span.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 600ms linear;
+    background-color: #fff9;
+}
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
 }

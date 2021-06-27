@@ -1,9 +1,14 @@
 import styles from './home.module.scss'
 import { Credit } from '../Credit/Credit'
 import { StatSVG } from "./StatSVG"
-import { Link } from 'react-router-dom'
+import { Button } from '../Button'
 
 export const Home = ({ stats }: any) => {
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(
+            `${window.location.origin}/${document.cookie.split(';').find(c => c.trim().startsWith('git_id'))?.split('=')[1]}`
+        )
+    }
 
     return (
         <div className={styles.mainWrapper}>
@@ -13,7 +18,7 @@ export const Home = ({ stats }: any) => {
                         <h3>Hey there <span className={styles.username}>{stats.username}</span></h3>
                         <p>Thanks for waiting!<br/> Here's your <span className={styles.highlight}>GitHubStats</span> image:</p>
                         <div className={styles.downloadButton}>
-                            <button><Link to={`${document.cookie.split(';').find(c => c.startsWith('git_id'))?.split('=')[1]}`}>Get your Link</Link></button>
+                            <Button onClick={copyToClipboard}>Get your Link</Button>
                         </div>
                     </div>
 

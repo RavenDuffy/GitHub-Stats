@@ -16,8 +16,6 @@ export const ServeSVGLayout = (props: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [recievedStats])
 
-    console.log(recievedStats)
-
     return (
         <>
             {(recievedStats === undefined)
