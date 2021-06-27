@@ -4,7 +4,7 @@ import cors from 'cors'
 import WebSocket from 'ws'
 
 import * as config from '../config.json'
-import { UserModel } from './stats_db/models/user'
+import { User, UserModel } from './stats_db/models/user'
 import * as GCD from './utils/gitcmds'
 import { FrontStats } from './types'
 
@@ -80,43 +80,29 @@ server.get('/callback', (req, res) => {
     .catch(err => console.error(err))
 })
 
+const updateStats = async (user: User | null) => {
+    if (user !== null) {
+        const stats = await GCD.GetStats(user.accessToken!, user.username)
+        user.stats = stats
+        user.save()
+    }
+}
+
 server.get('/stats', async (req, res) => {
     const userGitID = req.headers.cookie?.split(';').find(e => e.includes('git_id'))?.split('=')[1]
-    const user = await UserModel.find({ gitId: (userGitID !== undefined) ? parseInt(userGitID) : -1 })
-    if (user.length > 0) {
+    const user = await UserModel.findOne({ gitId: (userGitID !== undefined) ? parseInt(userGitID) : -1 })
+    if (user !== null) {
         const userToSend: FrontStats = {
-            username: user[0].username,
-            avatar: user[0].avatar,
-            stats: user[0].stats
+            username: user.username,
+            avatar: user.avatar,
+            stats: user.stats
         }
         res.json(userToSend)
     } else {
-        res.status(401).json({ response: "No valid access token found, please log in before continuing" })
+        res.status(401).json({ response: "No record with that id found, please log in before continuing" })
     }
+    updateStats(user)
 })
-
-/****** DEPRECATED FUNCTIONS BELOW ******/
-
-server.get('/update_token', async (req, res) => {
-    const userId = req.headers.cookie?.split(';').find(e => e.includes('git_id'))?.split('=')[1]
-    const token = (userId !== undefined) 
-        ? (await UserModel.find({ gitId: Number.parseInt(userId) }))[0].accessToken 
-        : null
-
-    res.json({ deprecated: 'this endpoint has been deprecated' })
-})
-
-server.get('/validate/:token', async (req, res) => {
-    const currentToken = req.params.token.split('=')[1]
-    const user = await UserModel.find({ accessToken: currentToken })
-    // if (user.length > 0)
-    //     res.json({ tokenValid: true })
-    // else
-    //     res.json({ tokenValid: false })
-    res.json({ deprecated: 'this endpoint has been deprecated' })
-})
-
-/****** END OF DEPRECATED FUNCTIONS ******/
 
 const startServer = async () => {
     await mongoose.connect(config.mongo.host, {
