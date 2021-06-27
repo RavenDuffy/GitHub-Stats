@@ -12,7 +12,7 @@ export const Home = ({ stats }: any) => {
                         <h3>Hey there <span className={styles.username}>{stats.username}</span></h3>
                         <p>Thanks for waiting!<br/> Here's your <span className={styles.highlight}>GitHubStats</span> image:</p>
                         <div className={styles.downloadButton}>
-                            <button>Download Image</button>
+                            <button>Get your Link</button>
                         </div>
                     </div>
 
@@ -28,7 +28,8 @@ export const Home = ({ stats }: any) => {
                     <ol>
                         <li>Create a public repository, that has the <span className={styles.bolden}>same name</span> as your GitHub username.</li>
                         <li>Initialise that repository with a readme.md. The readme.md will automatically display on your profile.</li>
-                        <li>Place the <span className={styles.highlight}>GitHubStats</span> SVG into the readme</li>
+                        <li>Click the button above to get your link</li>
+                        <li>Paste your <span className={styles.highlight}>GitHubStats</span> link into the readme in an image tag</li>
                         <li>Enjoy showing off your commits!</li>
                     </ol>
                 </div>
