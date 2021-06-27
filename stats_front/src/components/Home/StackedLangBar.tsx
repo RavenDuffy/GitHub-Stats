@@ -8,7 +8,7 @@ export const StackedLangBar = ({ ypos, langs }: any) => {
     }, 0)
     const width = 300
 
-    let lastX = 0
+    let lastX = 9
 
     return (
         <>

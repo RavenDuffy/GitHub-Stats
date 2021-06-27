@@ -28,7 +28,7 @@ export const Home = ({ stats }: any) => {
                     <ol>
                         <li>Create a public repository, that has the <span className={styles.bolden}>same name</span> as your GitHub username.</li>
                         <li>Initialise that repository with a readme.md. The readme.md will automatically display on your profile.</li>
-                        <li>Place your <span className={styles.highlight}>GitHubStats</span> SVG into this readme.md</li>
+                        <li>Place the <span className={styles.highlight}>GitHubStats</span> SVG into the readme</li>
                         <li>Enjoy showing off your commits!</li>
                     </ol>
                 </div>

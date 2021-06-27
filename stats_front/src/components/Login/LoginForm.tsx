@@ -4,8 +4,8 @@ import { Credit } from '../Credit/Credit'
 export const LoginForm = ({handleLogin}:any) => {
     return (
         <div className={styles.loginForm}>
-            <h1>GithubStats Application</h1>
-            <p>Welcome to the <span className={styles.title}>GithubStats Application</span>. We generate an simple stylised image to show off your GitHub stats wherever you wish.</p>
+            <h1>GithubStat Grabber</h1>
+            <p>Welcome to the <span className={styles.title}>GithubStat Grabber</span>. We generate an simple stylised image to show off your GitHub stats wherever you wish.</p>
             <div className={styles.list}>
                 <p>To do so, we collect:</p>
                 <ul>
