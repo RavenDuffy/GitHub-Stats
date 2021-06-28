@@ -13,15 +13,6 @@ export const Home = ({ stats }: any) => {
         )
     }
 
-    const createToolTip = () => {
-
-    }
-
-    const onClickEvents = () => {
-        copyToClipboard()
-        createToolTip()
-    }
-
     return (
         <div className={styles.mainWrapper}>
             <div className={styles.mainContent}>
@@ -30,9 +21,7 @@ export const Home = ({ stats }: any) => {
                         <h3>Hey there <span className={styles.username}>{stats.username}</span></h3>
                         <p>Thanks for waiting!<br/> Here's your <span className={styles.highlight}>GitHubStats</span> image:</p>
                         <div className={styles.copyToClipboardButton}>
-                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                            <a data-tip='Copied to clipboard!' data-for='clipboardTip' data-event='click focus'>
-                                <Button onClick={onClickEvents}>Get your Link</Button></a>
+                            <Button onClick={copyToClipboard}>Get your Link</Button>
                             <Tooltip
                                 id='clipboardTip'
                                 place='right'
