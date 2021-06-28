@@ -126,7 +126,7 @@ const startServer = async () => {
         useNewUrlParser: true,
         useCreateIndex: true,
         useFindAndModify: false
-    }) // split for prod
+    })
 
     // UserModel.collection.drop()
     // UserModel.collection.deleteMany({})

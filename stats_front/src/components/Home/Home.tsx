@@ -2,12 +2,24 @@ import styles from './home.module.scss'
 import { Credit } from '../Credit/Credit'
 import { StatSVG } from "./StatSVG"
 import { Button } from '../Button'
+import Tooltip from 'react-tooltip'
 
 export const Home = ({ stats }: any) => {
+    Tooltip.rebuild()
+
     const copyToClipboard = () => {
         navigator.clipboard.writeText(
             `${window.location.origin}/${document.cookie.split(';').find(c => c.trim().startsWith('git_id'))?.split('=')[1]}`
         )
+    }
+
+    const createToolTip = () => {
+
+    }
+
+    const onClickEvents = () => {
+        copyToClipboard()
+        createToolTip()
     }
 
     return (
@@ -17,8 +29,18 @@ export const Home = ({ stats }: any) => {
                     <div className={styles.topLeft}>
                         <h3>Hey there <span className={styles.username}>{stats.username}</span></h3>
                         <p>Thanks for waiting!<br/> Here's your <span className={styles.highlight}>GitHubStats</span> image:</p>
-                        <div className={styles.downloadButton}>
-                            <Button onClick={copyToClipboard}>Get your Link</Button>
+                        <div className={styles.copyToClipboardButton}>
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                            <a data-tip='Copied to clipboard!' data-for='clipboardTip' data-event='click focus'>
+                                <Button onClick={onClickEvents}>Get your Link</Button></a>
+                            <Tooltip
+                                id='clipboardTip'
+                                place='right'
+                                effect='solid'
+                                globalEventOff='click'
+                                backgroundColor='#fff'
+                                textColor='#000'
+                                afterShow={() => { setTimeout(Tooltip.hide, 3000) }} />
                         </div>
                     </div>
 
