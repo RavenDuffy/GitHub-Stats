@@ -2,15 +2,17 @@ import styles from './home.module.scss'
 import { Credit } from '../Credit/Credit'
 import { StatSVG } from "./StatSVG"
 import { Button } from '../Button'
-import Tooltip from 'react-tooltip'
+import { useState } from 'react'
 
 export const Home = ({ stats }: any) => {
-    Tooltip.rebuild()
+    const [isCopied, setIsCopied] = useState(false)
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(
             `${window.location.origin}/${document.cookie.split(';').find(c => c.trim().startsWith('git_id'))?.split('=')[1]}`
         )
+        setIsCopied(true)
+        setTimeout(() => setIsCopied(false), 1150)
     }
 
     return (
@@ -20,17 +22,11 @@ export const Home = ({ stats }: any) => {
                     <div className={styles.topLeft}>
                         <h3>Hey there <span className={styles.username}>{stats.username}</span></h3>
                         <p>Thanks for waiting!<br/> Here's your <span className={styles.highlight}>GitHubStats</span> image:</p>
-                        <div className={styles.copyToClipboardButton}>
-                            <Button onClick={copyToClipboard}>Get your Link</Button>
-                            <Tooltip
-                                id='clipboardTip'
-                                place='right'
-                                effect='solid'
-                                globalEventOff='click'
-                                backgroundColor='#fff'
-                                textColor='#000'
-                                afterShow={() => { setTimeout(Tooltip.hide, 3000) }} />
-                        </div>
+                        <Button
+                            className={styles.copyToClipboardButton}
+                            onClick={copyToClipboard}>
+                            {(!isCopied) ? 'Get your Link' : 'Copied to Clipboard!'}
+                        </Button>
                     </div>
 
                     <div className={styles.topRight}>

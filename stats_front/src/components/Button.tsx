@@ -16,7 +16,7 @@ export const Button = ({ children, onClick }: any) => {
 
         button.appendChild(circle)
 
-        onClick() // use new onclicks
+        if (typeof onClick === 'function') onClick() // use new onclicks
     }
 
     return (
