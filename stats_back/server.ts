@@ -120,6 +120,17 @@ server.get('/stats/:gitId', async (req, res) => {
     updateStats(user)
 })
 
+server.get('/svgtest', async (req, res) => {
+    res.format({'image/svg+xml': function() {res.send(`
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="400" height="180">
+            <g>
+            <rect x="50" y="20" rx="20" ry="20" width="150" height="150"
+                style="fill:red;stroke: black;stroke-width:5;opacity:0.5"></rect>
+            </g>
+        </svg>
+    `)}})
+})
+
 const startServer = async () => {
     await mongoose.connect(config.mongo.host.concat('/git_stats'), {
         useUnifiedTopology: true,
