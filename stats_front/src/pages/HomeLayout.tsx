@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchStats } from "../actions/statsActions"
 import { Home } from "../components/Home/Home"
 import { useEffect } from "react"
+import { LoginError } from "../components/Login/LoginError"
 
 
 export const HomeLayout = () => {
@@ -13,6 +14,7 @@ export const HomeLayout = () => {
     const [isLoginComplete, setIsLoginComplete] = useState(false)
     const [doStatsExist, setDoStatsExist] = useState(false)
     const recievedStats = useSelector((state: any) => state.statsReducer.userStats)
+    const recievedError = useSelector((state: any) => state.statsReducer.error)
     
     Socket.onmessage = event => {
         let parsed = event.data
@@ -35,14 +37,12 @@ export const HomeLayout = () => {
         if (recievedStats?.username !== undefined)
             setDoStatsExist(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [doStatsExist, isLoginComplete, recievedStats])
+    }, [doStatsExist, isLoginComplete, recievedStats, recievedError])
 
-    return (
-        <>
-            {(recievedStats?.username === undefined)
-                ? <Login />
-                : <Home stats={recievedStats}/>
-            }
-        </>
-    )
+    if (recievedError !== undefined)
+        return <LoginError />
+    else if (recievedStats?.stats === undefined)
+        return <Login />
+    else
+        return <Home stats={recievedStats} />
 }

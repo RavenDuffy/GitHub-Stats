@@ -121,15 +121,15 @@ server.get('/stats/:gitId', async (req, res) => {
 })
 
 const startServer = async () => {
-    await mongoose.connect(config.mongo.host, {
+    await mongoose.connect(config.mongo.host.concat('users'), {
         useUnifiedTopology: true,
         useNewUrlParser: true,
         useCreateIndex: true,
         useFindAndModify: false
     }) // split for prod
 
-    // UserModel.collection.drop()
-    // UserModel.collection.deleteMany({})
+    UserModel.collection.drop()
+    UserModel.collection.deleteMany({})
 
     server.listen(PORT)
 }
