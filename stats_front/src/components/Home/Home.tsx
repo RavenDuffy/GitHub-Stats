@@ -1,4 +1,5 @@
 import styles from './home.module.scss'
+import * as config from '../../config.local.json'
 import { Credit } from '../Credit/Credit'
 import { StatSVG } from "./StatSVG"
 import { Button } from '../Button'
@@ -9,7 +10,7 @@ export const Home = ({ stats }: any) => {
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(
-            `${window.location.origin}/${document.cookie.split(';').find(c => c.trim().startsWith('git_id'))?.split('=')[1]}`
+            `${config.hosts.back}/svg/${document.cookie.split(';').find(c => c.trim().startsWith('git_id'))?.split('=')[1]}`
         )
         setIsCopied(true)
         setTimeout(() => setIsCopied(false), 1150)

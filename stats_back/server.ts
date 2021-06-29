@@ -7,6 +7,7 @@ import * as config from '../config.json'
 import { User, UserModel } from './stats_db/models/user'
 import * as GCD from './utils/gitcmds'
 import { FrontStats } from './types'
+import { StatSVGString } from './utils/SVGtoString'
 
 // for whatever reason github callbacks on port 4005
 const PORT = 4005;
@@ -14,6 +15,7 @@ const PORT = 4005;
 const server = express()
 server.use(express.json())
 server.use(cors({ origin: true, credentials: true }))
+server.use(express.static(__dirname))
 
 interface ExtraWS extends WebSocket {
     [name: string]: any
@@ -120,15 +122,20 @@ server.get('/stats/:gitId', async (req, res) => {
     updateStats(user)
 })
 
-server.get('/svgtest', async (req, res) => {
-    res.format({'image/svg+xml': function() {res.send(`
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="400" height="180">
-            <g>
-            <rect x="50" y="20" rx="20" ry="20" width="150" height="150"
-                style="fill:red;stroke: black;stroke-width:5;opacity:0.5"></rect>
-            </g>
-        </svg>
-    `)}})
+server.get('/svg/:gitId', async (req, res) => {
+    const userGitID = req.params.gitId
+    const user = await UserModel.findOne({ gitId: (userGitID !== undefined) ? parseInt(userGitID) : -1 })
+    if (user !== null) {
+        const userF: FrontStats = {
+            username: user.username,
+            avatar: user.avatar,
+            stats: user.stats
+        }
+
+        // console.log(StatSVGString(userF))
+
+        res.format({'image/svg+xml': function() { res.send(StatSVGString(userF)) }})
+    }
 })
 
 const startServer = async () => {
