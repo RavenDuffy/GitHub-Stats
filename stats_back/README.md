@@ -13,6 +13,7 @@ to catch and return the data when a new user logs in using Github.
 
 ### Example
 This is my card as generated via this service (fetched at the `/svg/:gitId` endpoint)
+
 <img src="http://localhost:4005/svg/40807825"></img>
 
 
