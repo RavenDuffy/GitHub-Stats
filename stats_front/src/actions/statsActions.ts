@@ -16,8 +16,8 @@ export const fetchStats = (gitId: string | null=null) => {
             return
         }
         await axios.get((gitId !== null) 
-            ? `${config.hosts.stats_endpoint}/${parseInt(gitId)}`
-            : config.hosts.stats_endpoint, {
+            ? `${config.hosts.back}/stats/${parseInt(gitId)}`
+            : `${config.hosts.back}/stats`, {
             withCredentials: true
         }).then(result => {
             dispatch({
