@@ -5,6 +5,10 @@ import { getConfig } from './config.local'
 
 const config = getConfig()
 
+if (process.env.NODE_ENV === 'production') {
+  console.log = () => {}
+}
+
 function App() {
   return (
     <Router>
