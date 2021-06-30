@@ -1,9 +1,11 @@
 import styles from './home.module.scss'
-import * as config from '../../config.local.json'
+import { getConfig } from '../../config.local'
 import { Credit } from '../Credit/Credit'
 import { StatSVG } from "./StatSVG"
 import { Button } from '../Button'
 import { useState } from 'react'
+
+const config = getConfig()
 
 export const Home = ({ stats }: any) => {
     const [isCopied, setIsCopied] = useState(false)

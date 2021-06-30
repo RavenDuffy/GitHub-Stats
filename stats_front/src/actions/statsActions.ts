@@ -1,6 +1,8 @@
 import axios from 'axios'
-import * as config from '../config.local.json'
+import { getConfig } from '../config.local'
 import { FETCH_STATS } from '../reducers/statsReducer'
+
+const config = getConfig()
 
 export const fetchStats = (gitId: string | null=null) => {
     document.cookie = `stats_ready=${false}; max-age=${60 * 60 * 1};`

@@ -3,11 +3,13 @@ import express from 'express'
 import cors from 'cors'
 import WebSocket from 'ws'
 
-import * as config from '../config.json'
+import { getConfig } from './config'
 import { User, UserModel } from './stats_db/models/user'
 import * as GCD from './utils/gitcmds'
 import { FrontStats } from './types'
 import { StatSVGString } from './utils/SVGtoString'
+
+const config = getConfig()
 
 // for whatever reason github callbacks on port 4005
 const PORT = 4005;

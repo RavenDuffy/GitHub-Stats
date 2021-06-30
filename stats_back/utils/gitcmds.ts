@@ -1,7 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
 
-import * as config from '../../config.json'
+import { getConfig } from '../config';
 import { GitStats, Language } from '../types'
+
+const config = getConfig()
 
 async function DoAuth(queryCode: string): Promise<AxiosResponse<any>> {
     return await axios.post('https://github.com/login/oauth/access_token', {

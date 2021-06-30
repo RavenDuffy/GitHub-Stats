@@ -1,7 +1,9 @@
 import { HomeLayout } from "./pages/HomeLayout";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import * as config from './config.local.json'
+import { getConfig } from './config.local'
 
+
+const config = getConfig()
 
 function App() {
   return (
