@@ -1,13 +1,17 @@
 import { Colours, ColourMap } from "./colours"
-import { createCanvas} from 'canvas'
+import { createCanvas, registerFont } from 'canvas'
+import path from 'path'
+import * as FontURIs from '../fonts/FontURIs.json'
 
 const coloursIndexable = Colours as ColourMap
 
 // measuring using a preloaded font to get over google fonts not being loaded in time
 const calcTextWidth = (text: any): number => {
+    registerFont(path.join(__dirname, '../fonts/Montserrat-Regular.ttf'), { family: 'Montserrat' })
+
     const canvas = createCanvas(320, 320)
     const ctx = canvas.getContext('2d')
-    ctx!.font = 'bold 8px Arial'
+    ctx!.font = 'bold 8px Montserrat'
     return ctx!.measureText(text).width
 }
 
@@ -90,8 +94,12 @@ export const StatSVGString = (stats: any): string => {
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="data:image/png;base64" version="1.1" width='320' height='138'>
             <defs>
                 <style type='text/css'>
-                    * { font-family: 'Segoe UI'; }
-                    .langText { font-family: 'Calibri'; }
+                    @font-face {
+                        font-family: 'Montserrat';
+                        src: url(${FontURIs.Montserrat})
+                    }
+                    * { font-family: 'Montserrat'; }
+                    .langText { font-size: 8px; }
                 </style>
             </defs>
             <rect width='320' height='138' fill='#0f0f0f' rx='5px'></rect>

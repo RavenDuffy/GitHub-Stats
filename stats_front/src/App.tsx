@@ -1,6 +1,5 @@
 import { HomeLayout } from "./pages/HomeLayout";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { ServeSVGLayout } from "./pages/ServeSVGLayout";
 import * as config from './config.local.json'
 
 
@@ -14,7 +13,6 @@ function App() {
 
           return null
         }}/>
-        <Route path='/:gitId' component={ServeSVGLayout} />
         <Route path='/'>
           <div className="App">
             <HomeLayout />

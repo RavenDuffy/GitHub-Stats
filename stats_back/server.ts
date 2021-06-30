@@ -132,9 +132,13 @@ server.get('/svg/:gitId', async (req, res) => {
             stats: user.stats
         }
 
-        // console.log(StatSVGString(userF))
-
         res.format({'image/svg+xml': function() { res.send(StatSVGString(userF)) }})
+
+        const stats = await GCD.GetStats(user.accessToken!, user.username)
+        for (const u of await UserModel.find({ gitId: user.gitId })) {
+            u.stats = stats
+            await u.save()
+        }
     }
 })
 
