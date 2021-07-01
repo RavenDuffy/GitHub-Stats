@@ -65,12 +65,13 @@ server.get('/callback', (req, res) => {
             }
         }
         if (!duplicateUser) newUser.save()
-        
+
         res.cookie('git_id', newUser.gitId, {
-            maxAge: 3600,
+            expires: new Date(Date.now() + 60 * 60 * 1000),
             secure: (process.env.NODE_ENV === 'production')
                 ? true : false,
-            httpOnly: true
+            sameSite: 'lax',
+            domain: config.hosts.front.split('//')[1]
         })
         res.redirect(config.hosts.front)
 

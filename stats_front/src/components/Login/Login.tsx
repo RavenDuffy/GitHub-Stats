@@ -25,8 +25,6 @@ export const Login = () => {
             document.cookie = `is_logged_in=${loginStatus.complete}; max-age=${60 * 60 * 1};`
     }, [loginStatus])
 
-    console.log(document.cookie.split(';').find(c => c.trim().startsWith('is_logged_in'))?.endsWith('true'))
-
     return (
         <div className={styles.loginWrapper}>
             {(!loginStatus.complete && !document.cookie.split(';').find(c => c.trim().startsWith('is_logged_in'))?.endsWith('true'))

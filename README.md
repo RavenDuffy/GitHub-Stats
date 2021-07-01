@@ -1,5 +1,5 @@
 # GitHub Stats
-<img src="http://localhost:4005/svg/40807825"></img>
+<img src="https://api.mygitstats.com/svg/40807825"></img>
 
 ---
 
