@@ -17,7 +17,9 @@ interface config {
 
 const getConfig = (): config => {
     const conf: config = {
-        client: topConfig.client,
+        client: (process.env.NODE_ENV === 'production')
+            ? topConfig.client.prod
+            : topConfig.client.dev,
         hosts: (process.env.NODE_ENV === 'production')
             ? topConfig.hosts.prod
             : topConfig.hosts.dev

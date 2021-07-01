@@ -18,6 +18,7 @@ const server = express()
 server.use(express.json())
 server.use(cors({ origin: true, credentials: true }))
 server.use(express.static(__dirname))
+server.set('trust_proxy', 1)
 
 interface ExtraWS extends WebSocket {
     [name: string]: any
@@ -64,8 +65,13 @@ server.get('/callback', (req, res) => {
             }
         }
         if (!duplicateUser) newUser.save()
-
-        res.cookie('git_id', newUser.gitId)
+        
+        res.cookie('git_id', newUser.gitId, {
+            maxAge: 3600,
+            secure: (process.env.NODE_ENV === 'production')
+                ? true : false,
+            httpOnly: true
+        })
         res.redirect(config.hosts.front)
 
         // get user's repo info

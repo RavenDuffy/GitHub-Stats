@@ -1,12 +1,14 @@
 import React from 'react'
 import styles from './login.module.scss'
-import * as config from '../../config.local.json'
+import { getConfig } from '../../config.local'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { doLogin } from '../../actions/loginActions'
 import { LoadingStatus } from './LoadingStatus'
 import { LoginForm } from './LoginForm'
 
+
+const config = getConfig()
 
 export const Login = () => {
     const dispatch = useDispatch()
@@ -22,6 +24,8 @@ export const Login = () => {
         if (loginStatus.complete)
             document.cookie = `is_logged_in=${loginStatus.complete}; max-age=${60 * 60 * 1};`
     }, [loginStatus])
+
+    console.log(document.cookie.split(';').find(c => c.trim().startsWith('is_logged_in'))?.endsWith('true'))
 
     return (
         <div className={styles.loginWrapper}>
