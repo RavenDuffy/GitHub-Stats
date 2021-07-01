@@ -13,8 +13,8 @@ const calcTextWidth = (text: any): number => {
 const calcXY = (x: number, initialX: number=0, width: number, text: string): number[] => {
     const textWidth = calcTextWidth(text)
 
-    let newX = (textWidth + x <= width - 20) ? textWidth + 20 : -x + initialX;
-    let newY = (textWidth + x <= width - 20) ? 0 : 16
+    let newX = (textWidth + x <= width - 70) ? textWidth + 20 : -x + initialX;
+    let newY = (textWidth + x <= width - 70) ? 0 : 16
 
     return [newX, newY]
 }
