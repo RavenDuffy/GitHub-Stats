@@ -71,7 +71,9 @@ server.get('/callback', (req, res) => {
             secure: (process.env.NODE_ENV === 'production')
                 ? true : false,
             sameSite: 'lax',
-            domain: config.hosts.front.split('//')[1]
+            domain: (process.env.NODE_ENV === 'production') 
+                ? config.hosts.front.split('//')[1]
+                : undefined
         })
         res.redirect(config.hosts.front)
 
