@@ -145,8 +145,8 @@ const startServer = async () => {
         useFindAndModify: false
     })
 
-    // UserModel.collection.drop()
-    // UserModel.collection.deleteMany({})
+    UserModel.collection.drop()
+    UserModel.collection.deleteMany({})
 
     server.listen(PORT)
 }
