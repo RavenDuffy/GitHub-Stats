@@ -18,7 +18,6 @@ export const HomeLayout = () => {
     
     Socket.onmessage = event => {
         let parsed = event.data
-        console.log(parsed)
         try { parsed = JSON.parse(parsed) } catch (e) { }
         if (parsed?.fetched_status !== undefined) {
             setIsLoginComplete(parsed.fetched_status)
