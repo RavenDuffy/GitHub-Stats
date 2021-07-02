@@ -2,6 +2,8 @@ import mongoose from 'mongoose'
 import express from 'express'
 import cors from 'cors'
 import WebSocket from 'ws'
+import https from 'https'
+import fs from 'fs'
 
 import { getConfig } from './config'
 import { User, UserModel } from './stats_db/models/user'
@@ -23,10 +25,19 @@ server.set('trust_proxy', 1)
 interface ExtraWS extends WebSocket {
     [name: string]: any
 }
+ 
+const httpsServer = (process.env.NODE_ENV === 'production') ? https.createServer({
+    cert: fs.readFileSync(`/etc/letsencrypt/live/mygitstats.com/cert.pem`, 'utf8'),
+    key: fs.readFileSync(`/etc/letsencrypt/live/mygitstats.com/privkey.pem`, 'utf8'),
+    ca: fs.readFileSync(`/etc/letsencrypt/live/mygitstats.com/chain.pem`, 'utf8'),
+}) : undefined
+
+if (httpsServer !== undefined) httpsServer.listen(4010)
 
 const wss = new WebSocket.Server({
-    port: 4010,
-    perMessageDeflate: false
+    perMessageDeflate: false,
+    server: (httpsServer !== undefined) ? httpsServer : undefined,
+    port: (httpsServer !== undefined) ? undefined : 4010
 })
 
 wss.on('connection', (ws: ExtraWS, req) => {
@@ -70,10 +81,8 @@ server.get('/callback', (req, res) => {
             expires: new Date(Date.now() + 60 * 60 * 1000),
             secure: (process.env.NODE_ENV === 'production')
                 ? true : false,
-            sameSite: 'lax',
-            domain: (process.env.NODE_ENV === 'production') 
-                ? config.hosts.front.split('//')[1]
-                : undefined
+            sameSite: true,
+            domain: config.hosts.front.split('//')[1]
         })
         res.redirect(config.hosts.front)
 
@@ -145,8 +154,12 @@ const startServer = async () => {
         useFindAndModify: false
     })
 
-    UserModel.collection.drop()
-    UserModel.collection.deleteMany({})
+    if ((await UserModel.db.db.listCollections({
+        name: UserModel.collection.name
+    }).toArray()).find(c => c.name === UserModel.collection.name) !== undefined) {
+        UserModel.collection.drop()
+        UserModel.collection.deleteMany({})
+    }
 
     server.listen(PORT)
 }
