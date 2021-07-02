@@ -81,8 +81,11 @@ server.get('/callback', (req, res) => {
             expires: new Date(Date.now() + 60 * 60 * 1000),
             secure: (process.env.NODE_ENV === 'production')
                 ? true : false,
-            sameSite: true,
-            domain: config.hosts.front.split('//')[1]
+            sameSite: (process.env.NODE_ENV === 'production')
+                ? true : undefined,
+            domain: (process.env.NODE_ENV === 'production')
+                ? config.hosts.front.split('//')[1]
+                : undefined
         })
         res.redirect(config.hosts.front)
 
