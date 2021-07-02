@@ -10,7 +10,7 @@
 | [stats_front](stats_front)| React Frontend        |
 
 ## Note to Developers
-If you'd like to fork or further develop this repo there are a few prerequisites listed in the next section
+If you'd like to fork or further develop this repo there are a few prerequisites listed in the next section.
 ### Getting setup
 1. Please ensure you have [Mongodb](https://www.mongodb.com/try/download/community) on your system
 2. After cloning, make sure to run `npm install` in both the `stats_back` and `stats_front` directories (the majority of
