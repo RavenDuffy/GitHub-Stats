@@ -23,7 +23,7 @@ export const LoginError = () => {
 
     return (
         <div className={styles.errorWrapper}>
-            <h4>An error has occured, please click the button below to reload.</h4>
+            <h4>An error has occured, please clear your cookies and click the button below to reload.</h4>
             <Button onClick={clearCookies}>Reload</Button>
         </div>
     )
