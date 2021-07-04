@@ -3,6 +3,11 @@
 
 ---
 
+## What is this project?
+This project captures the information from Github accounts to generate an embeddable .svg image which can be used anywhere!
+Unlike other implementations, this repo lets the user login to their account which allows access to private repositories
+ensuring a more accurate system.
+
 ## Structure
 | Codebase                  | Description           |
 | :------------------------ | :-------------------: |
